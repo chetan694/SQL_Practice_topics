@@ -1,0 +1,94 @@
+CREATE DATABASE CompanyDB;
+
+USE CompanyDB;
+
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50),
+    DepartmentID INT,
+    Salary INT
+);
+
+INSERT INTO Employees VALUES
+(1, 'Chetan', 101, 50000),
+(2, 'Rahul', 102, 60000),
+(3, 'Priya', 103, 55000),
+(4, 'Ankit', NULL, 45000),
+(5, 'Neha', 102, 70000);
+
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(50)
+);
+
+INSERT INTO Departments VALUES
+(101, 'ECE'),
+(102, 'CSE'),
+(103, 'IT'),
+(104, 'ME');
+
+SELECT * FROM Employees;
+
+SELECT * FROM Departments;
+
+SELECT Employees.EmpName,
+       Departments.DepartmentName,
+       Employees.Salary
+FROM Employees
+INNER JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+
+SELECT Employees.EmpName,
+       Departments.DepartmentName
+FROM Employees
+LEFT JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+
+SELECT Employees.EmpName,
+       Departments.DepartmentName
+FROM Employees
+RIGHT JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+
+SELECT Employees.EmpName,
+       Departments.DepartmentName
+FROM Employees
+FULL OUTER JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID;
+
+SELECT A.EmpName AS Employee1,
+       B.EmpName AS Employee2,
+       A.DepartmentID
+FROM Employees A
+JOIN Employees B
+ON A.DepartmentID = B.DepartmentID
+AND A.EmpID <> B.EmpID;
+
+SELECT Employees.EmpName,
+       Departments.DepartmentName
+FROM Employees
+CROSS JOIN Departments;
+
+SELECT Employees.EmpName,
+       Departments.DepartmentName,
+       Employees.Salary
+FROM Employees
+INNER JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID
+WHERE Employees.Salary > 55000;
+
+SELECT Departments.DepartmentName,
+       COUNT(Employees.EmpID) AS TotalEmployees,
+       AVG(Employees.Salary) AS AverageSalary
+FROM Employees
+INNER JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID
+GROUP BY Departments.DepartmentName;
+
+SELECT Employees.EmpName,
+       Departments.DepartmentName,
+       Employees.Salary
+FROM Employees
+INNER JOIN Departments
+ON Employees.DepartmentID = Departments.DepartmentID
+ORDER BY Employees.Salary DESC;
