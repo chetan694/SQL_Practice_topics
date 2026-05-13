@@ -1,5 +1,4 @@
 CREATE DATABASE CompanyDB;
-
 USE CompanyDB;
 
 CREATE TABLE Employees (
